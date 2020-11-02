@@ -1,3 +1,4 @@
 .idea/
+*robots-content.txt
 venv
 valid-directories-found.txt
