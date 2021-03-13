@@ -1,0 +1,8 @@
+on: push
+name: Lint Python
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Campsite-Rule-Python-Lint
+        uses: jdreeve/campsite-rule-python-lint@0.1-release
