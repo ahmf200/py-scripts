@@ -1,5 +1,4 @@
 import requests
-import re
 import sys
 
 
@@ -7,7 +6,7 @@ def get_robots_from_single_url():
     ask_user_for_url = input("Enter the url you want to get the robots.txt file from. Please include http or https: ")
     parse_url_to_name_file = ask_user_for_url.replace('http://', '').replace('.co.uk', '')
     add_robots_to_given_url = ask_user_for_url + "/robots.txt"
-    get_robots_response = requests.get(add_robots_to_given_url)
+    get_robots_response = requests.get(add_robots_to_given_url, verify=False)
     get_robots_response_code = get_robots_response.status_code
     # print(type(get_robots_response_code))
     # print(get_robots_response.text)
@@ -20,16 +19,19 @@ def get_robots_from_single_url():
         sys.exit()
 
 
-def file_to_write_valid_directories(title, response):
-    new_file = open(f"{title}--robots-content.txt", "a")
+def file_to_write_valid_directories(prepend_filename, response):
+    protocols = ['http://', 'https://']
+    www_prefix = 'www.'
+    for x in protocols:
+        if x in prepend_filename:
+            strip_protocol = prepend_filename.replace(x, '')
+            if www_prefix in strip_protocol:
+                strip_www = strip_protocol.replace(www_prefix, '')
+    new_file = open(f"{strip_protocol}--robots-content.txt", "w+")
     new_file.write(response + "\n")
 
 
-# two functions, one for a single input and another for multiple urls from a text file
+# TODO: two functions, one for a single input and another for multiple urls from a text file
 
 if __name__ == "__main__":
     get_robots_from_single_url()
-
-
-
-

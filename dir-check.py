@@ -9,7 +9,7 @@ wordlist = sys.argv[2]
 
 # function to write valid directories which return with response code of 200, to a file
 def file_to_write_valid_directories(word):
-    new_file = open("valid-directories-found.txt", "a")
+    new_file = open("valid-directories-found.txt", "w+")
     new_file.write(word + "\n")
 
 
